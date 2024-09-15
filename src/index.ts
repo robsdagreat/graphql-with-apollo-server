@@ -15,8 +15,19 @@ const typeDefs = gql(
 );
 
 const startApolloSever = async ()=>{
- const server = new ApolloServer({typeDefs});
- const {url} = await startStandaloneServer(server);
+ const server = new ApolloServer({typeDefs,
+    resolvers,
+ });
+ const {url} = await startStandaloneServer(server,{
+    context: async()=> {
+        const {cache} = server;
+       return{
+         dataSources: {
+         listingApi: new ListingApi({cache}),
+        },
+    };
+},
+ });
  console.log(`
     🚀 Server is running!
     📭 Query at ${url}

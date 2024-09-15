@@ -1,4 +1,4 @@
-import {Resolvers} from './typpes'
+import {Resolvers} from './types'
 
 export const resolvers: Resolvers = {
     Query:{
